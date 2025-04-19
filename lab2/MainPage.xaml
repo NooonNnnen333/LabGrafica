@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:lab2"
+             x:DataType="viewmodel:ViewModel"
+             x:Class="lab2.MainPage">
+
+    <ScrollView>
+        <!-- Вертикальный стек-контейнер для основного расположения -->
+        <VerticalStackLayout Spacing="55" Padding="20">
+
+            <!-- Вложенный стек для Entry и кнопки -->
+            <VerticalStackLayout Spacing="15">
+                <Entry Text="{Binding Line}"
+                       Placeholder="Введите тип линий"
+                       HorizontalOptions="Fill" />
+
+                <Button Text="Добавить тип линий"
+                        Command="{Binding AddLineCommand, Mode=TwoWay}"
+                        CommandParameter="{Binding Line}"
+                        BackgroundColor="DarkCyan"
+                        FontSize="19"
+                        HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <!-- Коллекция, где отображаем введённые строки -->
+            <CollectionView ItemsSource="{Binding LinesMassive}"
+                            SelectionMode="None"
+                            Margin="10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Grid Padding="3">
+                            <Frame>
+                                <Label Text="{Binding .}"
+                                       FontSize="19" />
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Picker для выбора значения из заранее заданного списка -->
+            <Picker Title=""
+                    ItemsSource="{Binding Options}"
+                    SelectedItem="{Binding Stroka, Mode=TwoWay}"
+                    Margin="10" />
+
+            <!-- Выбранный пункт отображается здесь -->
+            <Label Text="{Binding Vivod}"
+                   FontSize="20"
+                   HorizontalOptions="Center" />
+            <Button Text="Посмотреть"
+                    Command="{Binding IformCommand, Mode=TwoWay}"/>
+            
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
